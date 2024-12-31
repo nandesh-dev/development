@@ -8,7 +8,7 @@ RUN apt-get update \
   curl sudo \
   git gh \
   neofetch \
-  neovim gcc ripgrep
+  neovim gcc ripgrep xclip
 
 RUN apt-get remove -y w3m
 
