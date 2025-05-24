@@ -24,7 +24,8 @@ RUN mkdir /home/$USERNAME/.config \
   && update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 \
   && sudo update-alternatives --config editor
 
-RUN chown $USERNAME:$USERNAME -R /home/$USERNAME \
+RUN mkdir "/workspace" \
+  && chown $USERNAME:$USERNAME -R /home/$USERNAME \
   && chown $USERNAME:$USERNAME /workspace \
   && echo 'cd /workspace' >> /home/$USERNAME/.bashrc
 
