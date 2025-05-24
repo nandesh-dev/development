@@ -33,7 +33,7 @@ RUN mkdir "/workspace" \
 WORKDIR /workspace
 
 RUN mkdir -p /home/$USERNAME/.ssh \
-  && "$SSH_PUBLIC_KEY" > /home/$USERNAME/.ssh/authorized_keys \
+  && echo "$SSH_PUBLIC_KEY" > /home/$USERNAME/.ssh/authorized_keys \
   && chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh \
   && chmod 700 /home/$USERNAME/.ssh \
   && chmod 600 /home/$USERNAME/.ssh/authorized_keys
