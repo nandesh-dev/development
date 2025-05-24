@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
 ARG USERNAME=nandesh
+ARG SSH_PUBLIC_KEY
 
 RUN apt-get update \
   && apt-get install software-properties-common -y \
@@ -30,6 +31,12 @@ RUN mkdir "/workspace" \
   && echo 'cd /workspace' >> /home/$USERNAME/.bashrc
 
 WORKDIR /workspace
+
+RUN mkdir -p /home/$USERNAME/.ssh \
+  && "$SSH_PUBLIC_KEY" > /home/$USERNAME/.ssh/authorized_keys \
+  && chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh \
+  && chmod 700 /home/$USERNAME/.ssh \
+  && chmod 600 /home/$USERNAME/.ssh/authorized_keys
 
 RUN mkdir -p /var/run/sshd
 EXPOSE 22
