@@ -18,7 +18,7 @@ RUN adduser $USERNAME \
   && echo "$USERNAME:insecure" | chpasswd
 
 RUN mkdir /home/$USERNAME/.config \
-  && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/ \
+  && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/nvim \
   && echo 'export EDITOR="nvim"' >> /home/$USERNAME/.bashrc \
   && echo 'export VISUAL="nvim"' >> /home/$USERNAME/.bashrc \
   && update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 \
