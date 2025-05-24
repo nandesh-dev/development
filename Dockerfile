@@ -4,7 +4,7 @@ ARG USERNAME=nandesh
 
 RUN apt-get update \
   && apt-get install software-properties-common -y \
-  && add-apt-repository ppa:neovim-ppa/stable \
+  && add-apt-repository ppa:neovim-ppa/unstable \
   && apt-get update \
   && apt-get install -y \
   openssh-server \
