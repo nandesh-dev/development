@@ -25,7 +25,6 @@ RUN mkdir /home/$USERNAME/.config \
   && echo 'export EDITOR="nvim"' >> /home/$USERNAME/.bashrc \
   && echo 'export VISUAL="nvim"' >> /home/$USERNAME/.bashrc \
   && update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 \
-  && sudo update-alternatives --config editor \
   && nvim --headless "+Lazy! install" +qa \
 
 RUN su - $USERNAME -c "git config --global user.name \"$GIT_NAME\"" \
