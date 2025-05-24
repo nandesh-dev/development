@@ -10,28 +10,27 @@ RUN apt-get update \
   openssh-server \
   curl sudo \
   git gh \
-  neovim gcc ripgrep xclip
-
-RUN apt-get remove -y w3m
-
-RUN mkdir -p /var/run/sshd
+  neovim gcc ripgrep xclip \
+  && apt-get remove -y w3m
 
 RUN adduser $USERNAME \
-  && usermod -aG sudo $USERNAME
+  && usermod -aG sudo $USERNAME \
+  && echo "$USERNAME:insecure" | chpasswd
 
-RUN echo "$USERNAME:insecure" | chpasswd
-
-WORKDIR /home/$USERNAME/.config/
-RUN git clone https://github.com/nandesh-dev/nvim.git
-RUN echo 'export EDITOR="nvim"' >> /home/$USERNAME/.bashrc \
-  && echo 'export VISUAL="nvim"' >> /home/$USERNAME/.bashrc
-
-WORKDIR /workspace
-RUN echo 'cd /workspace' >> /home/$USERNAME/.bashrc
+RUN mkdir /home/$USERNAME/.config \
+  && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/ \
+  && echo 'export EDITOR="nvim"' >> /home/$USERNAME/.bashrc \
+  && echo 'export VISUAL="nvim"' >> /home/$USERNAME/.bashrc \
+  && update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 \
+  && sudo update-alternatives --config editor
 
 RUN chown $USERNAME:$USERNAME -R /home/$USERNAME \
-  && chown $USERNAME:$USERNAME /workspace
+  && chown $USERNAME:$USERNAME /workspace \
+  && echo 'cd /workspace' >> /home/$USERNAME/.bashrc
 
+WORKDIR /workspace
+
+RUN mkdir -p /var/run/sshd
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
