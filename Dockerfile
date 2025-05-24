@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 ARG USERNAME=nandesh
 ARG SSH_PUBLIC_KEY
+ARG GIT_NAME=nandesh-dev
+ARG GIT_EMAIL=nandesh.dev@gmail.com
 
 RUN apt-get update \
   && apt-get install software-properties-common -y \
@@ -24,6 +26,9 @@ RUN mkdir /home/$USERNAME/.config \
   && echo 'export VISUAL="nvim"' >> /home/$USERNAME/.bashrc \
   && update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100 \
   && sudo update-alternatives --config editor
+
+RUN su - $USERNAME -c "git config --global user.name \"$GIT_NAME\"" \
+  && su - $USERNAME -c "git config --global user.email \"$GIT_EMAIL\""
 
 RUN mkdir "/workspace" \
   && chown $USERNAME:$USERNAME -R /home/$USERNAME \
