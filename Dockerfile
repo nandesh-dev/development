@@ -18,6 +18,7 @@ RUN apt-get update \
 
 RUN adduser $USERNAME \
   && usermod -aG sudo $USERNAME \
+  && usermod -p '!' $USERNAME \
   && passwd -u $USERNAME
 
 RUN mkdir /home/$USERNAME/.config \
