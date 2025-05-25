@@ -17,7 +17,8 @@ RUN apt-get update \
   && apt-get remove -y w3m
 
 RUN adduser $USERNAME \
-  && usermod -aG sudo $USERNAME
+  && usermod -aG sudo $USERNAME \
+  && passwd -u $USERNAME
 
 RUN mkdir /home/$USERNAME/.config \
   && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/nvim \
