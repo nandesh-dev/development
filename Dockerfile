@@ -17,8 +17,7 @@ RUN apt-get update \
   && apt-get remove -y w3m
 
 RUN adduser $USERNAME \
-  && usermod -aG sudo $USERNAME \
-  && echo "$USERNAME:insecure" | chpasswd
+  && usermod -aG sudo $USERNAME
 
 RUN mkdir /home/$USERNAME/.config \
   && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/nvim \
