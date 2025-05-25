@@ -16,10 +16,8 @@ RUN apt-get update \
   neovim gcc ripgrep xclip \
   && apt-get remove -y w3m
 
-RUN adduser $USERNAME \
-  && usermod -aG sudo $USERNAME \
-  && usermod -p '!' $USERNAME \
-  && passwd -u $USERNAME
+RUN adduser --disabled-password $USERNAME \
+  && usermod -aG sudo $USERNAME
 
 RUN mkdir /home/$USERNAME/.config \
   && git clone https://github.com/nandesh-dev/nvim.git /home/$USERNAME/.config/nvim \
