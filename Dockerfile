@@ -40,7 +40,8 @@ RUN mkdir -p /home/$USERNAME/.ssh \
   && echo "$SSH_PUBLIC_KEY" > /home/$USERNAME/.ssh/authorized_keys \
   && chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh \
   && chmod 700 /home/$USERNAME/.ssh \
-  && chmod 600 /home/$USERNAME/.ssh/authorized_keys
+  && chmod 600 /home/$USERNAME/.ssh/authorized_keys \
+  && echo "PasswordAuthentication no" > /etc/ssh/sshd_config
 
 RUN mkdir -p /var/run/sshd
 EXPOSE 22
