@@ -41,7 +41,7 @@ RUN mkdir -p /home/$USERNAME/.ssh \
   && chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh \
   && chmod 700 /home/$USERNAME/.ssh \
   && chmod 600 /home/$USERNAME/.ssh/authorized_keys \
-  && echo "PasswordAuthentication no" > /etc/ssh/sshd_config
+  && echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 
 RUN mkdir -p /var/run/sshd
 EXPOSE 22
