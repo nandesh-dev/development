@@ -17,6 +17,8 @@ RUN apt-get update \
   && apt-get remove -y w3m
 
 RUN adduser --disabled-password $USERNAME \
+  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+  && chmod 0440 /etc/sudoers.d/$USERNAME \
   && usermod -aG sudo $USERNAME
 
 RUN mkdir /home/$USERNAME/.config \
